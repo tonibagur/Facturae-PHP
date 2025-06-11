@@ -130,13 +130,13 @@ final class FacturaeSigner {
     }
 
     // Extract root element
-    $openTagPosition = mb_strpos($xml, '<fe:Facturae ');
+    $openTagPosition = mb_strpos($xml, '<fac:Facturae ');
     if ($openTagPosition === false) {
-      throw new RuntimeException('XML document is missing <fe:Facturae /> element');
+      throw new RuntimeException('XML document is missing <fac:Facturae /> element');
     }
-    $closeTagPosition = mb_strpos($xml, '</fe:Facturae>');
+    $closeTagPosition = mb_strpos($xml, '</fac:Facturae>');
     if ($closeTagPosition === false) {
-      throw new RuntimeException('XML document is missing </fe:Facturae> closing tag');
+      throw new RuntimeException('XML document is missing </fac:Facturae> closing tag');
     }
     $closeTagPosition += 14;
     $xmlRoot = mb_substr($xml, $openTagPosition, $closeTagPosition-$openTagPosition);
@@ -263,7 +263,7 @@ final class FacturaeSigner {
     '</ds:Signature>';
 
     // Build new document
-    $xmlRoot = str_replace('</fe:Facturae>', "$dsSignature</fe:Facturae>", $xmlRoot);
+    $xmlRoot = str_replace('</Facturae>', "$dsSignature</Facturae>", $xmlRoot);
     $xml = mb_substr($xml, 0, $openTagPosition) . $xmlRoot . mb_substr($xml, $closeTagPosition);
 
     return $xml;
@@ -283,13 +283,13 @@ final class FacturaeSigner {
     }
 
     // Extract root element
-    $rootOpenTagPosition = mb_strpos($xml, '<fe:Facturae ');
+    $rootOpenTagPosition = mb_strpos($xml, '<Facturae ');
     if ($rootOpenTagPosition === false) {
-      throw new RuntimeException('Signed XML document is missing <fe:Facturae /> element');
+      throw new RuntimeException('Signed XML document is missing <fac:Facturae /> element');
     }
-    $rootCloseTagPosition = mb_strpos($xml, '</fe:Facturae>');
+    $rootCloseTagPosition = mb_strpos($xml, '</fac:Facturae>');
     if ($rootCloseTagPosition === false) {
-      throw new RuntimeException('Signed XML document is missing </fe:Facturae> closing tag');
+      throw new RuntimeException('Signed XML document is missing </fac:Facturae> closing tag');
     }
     $rootCloseTagPosition += 14;
     $xmlRoot = mb_substr($xml, $rootOpenTagPosition, $rootCloseTagPosition-$rootOpenTagPosition);
